@@ -1,11 +1,21 @@
+from dataclasses import dataclass
+
 file = open('day5\input.txt', 'r')
 lines = file.readlines()
 
+@dataclass
+class SeedRange:
+    checked: bool
+    start: int
+    end: int
+
 seeds = list(map(int, lines[0].strip("seeds: ").split()))
-seeds = [[seeds[i*2],seeds[i*2+1]] for i in range(int(len(seeds)/2))]
-bag = map(lambda x: [False,x], seeds)
-seeds = list(bag)
-print(seeds)
+print(len(seeds))
+seedBag = []
+for i in range(int(len(seeds)/2)):
+    seedBag.append(SeedRange(False, seeds[i*2], seeds[i*2] + seeds[i*2 + 1]))
+
+print(seedBag)
 
 
 def inRange(source, sourceStart, size):
